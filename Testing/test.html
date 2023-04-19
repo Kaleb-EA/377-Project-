@@ -1,0 +1,47 @@
+<html>
+<head>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+
+<script>
+
+    $(function() {
+
+
+   var superheroes = [];
+
+   $.getJSON('superheroes.json', function(data) {
+       $.each(data.Superheroes, function(i, f) {
+          var tblRow = "<tr>" + "<td>" + f.superhero + "</td>" +
+           "<td>" + f.publisher + "</td>" + "<td>" + f.alter_ego + "</td>" + "<td>" + f.first_appearance 
+           + "</td>" + "<td>" + f.other_names + "</td>" + "</tr>"
+           $(tblRow).appendTo("#userdata tbody");
+     });
+
+   });
+
+});
+</script>
+</head>
+
+<body>
+
+<div class="wrapper">
+<div class="profile">
+   <table id= "userdata" border="2">
+  <thead>
+            <th>Superhero</th>
+            <th>Publisher</th>
+            <th>Alter Ego</th>
+            <th>First Appearance</th>
+            <th>Other Names</th>
+        </thead>
+      <tbody>
+
+       </tbody>
+   </table>
+
+</div>
+</div>
+
+</body>
+</html>
