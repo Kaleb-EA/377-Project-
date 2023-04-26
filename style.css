@@ -323,7 +323,10 @@
       New code bonus: pure CSS data loading icon
       This comes from loading.io/css - it's nice to show that something is happening!
   */
-  
+  .chart_container{
+    height: flex;
+    width: flex;
+  }
   .lds-ellipsis {
     display: inline-block;
     position: relative;
@@ -378,4 +381,15 @@
     100% {
       transform: translate(24px, 0);
     }
+  }
+  chart{
+    font-family: arial;
+    font-size: 16px;
+    margin: 0;
+    background: #fff;
+    color: #000;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 100vh;
   }

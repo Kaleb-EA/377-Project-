@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Comic Character and Movie Database</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <div class="wrapper">
   <header class="header">
     <h1>Comic Characters and Movies Database</h1>
@@ -14,8 +15,8 @@
         <div>Form Inputs</div>
         <form action='' class="main_form box">
         <div>
-            <label for="resto">Search Character or Movie</label>
-            <input type="text" name="resto" id="resto">
+            <label for="resto">Search Character for info</label>
+            <input type="search-list" id="search-list">
         </div>
         <div class="buttons">   
             <button type="button" id="generate">Search</button>
@@ -36,9 +37,22 @@
     </div>
   </div>
 </div>
+<div class="chart_container box">
+  <label for="hero-id">Enter a superhero ID:</label>
+  <input type="text" id="hero-id">
+  <button id="search-btn">Search</button>
+  <h4>Character stats</h4>
+  <div class="chart_container">
+  <canvas id="power-stats"></canvas>
+  <h2>Biography</h2>
+  <ul id="biography"></ul>
+</div>   
+</div>
+<div>
 <div class="footer a:hover">
     <footer><a href="http://github.com/Kaleb-EA/"> My UMD INST377 account</a></footer>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

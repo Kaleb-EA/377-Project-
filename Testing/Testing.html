@@ -1,0 +1,57 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kaleb Afework's Lab for INST377</title>
+    
+  <!---<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+  integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+  crossorigin=""/>-->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ <link rel="stylesheet" href="Testing.css" />
+  <!--<Make sure you put this after Leaflet's css
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script> -->
+</head>
+</html>
+<div class="wrapper">
+  <header class="header">
+    <h1>Comic Characters and Movies Database</h1>
+  </header>
+  <div class="container">
+    <div class="left_section box">
+        <div>Form Inputs</div>
+        <form action='https://data.princegeorgescountymd.gov/resource/umjn-t2iz.json' class="main_form box">
+            <button type="button" id="data_load">Load County Data</button>
+            <button type="button" id="data_clear">Clear County Data</button>
+        <div>
+            <label for="resto">Search Character for info</label>
+            <input type="text" name="resto" id="resto">
+        </div>
+        <div class="buttons">   
+            <button type="button" id="generate">Generate List</button>
+        </div>
+        </form>
+        </div>
+    <div class="right_section box">
+      <h3>Character Stats</h3>
+      <div class="chart_container">
+        <canvas id="myChart"></canvas>
+      </div>
+     <!--<div id="map" class="box"></div>--> 
+      <ol class="box" id="restaurant_list">
+        A List of Local Restaurants
+      </ol>
+        <div class ="lds-ellipsis" id = "data_load_animation"><div></div><div></div><div></div><div></div></div>
+    </div>
+  </div>
+</div>
+<div class="footer a:hover">
+    <footer><a href="http://github.com/Kaleb-EA/"> My UMD INST377 account</a></footer>
+</div>
+<script src="Testing.js"></script>
+</body>
+</html>
+
+
+ 
