@@ -75,7 +75,7 @@ document.querySelector('.prev') // Get the appropriate element (<button class="n
     moveToPrevSlide(); // call the function above to handle this
   });
 
-// constanstns and event listener for character search
+// const and event listener for character search
   const searchBtn = document.getElementById('search-btn');
   searchBtn.addEventListener('click', () => {
     const heroId = document.getElementById('hero-id').value;
