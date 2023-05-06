@@ -75,18 +75,9 @@ document.querySelector('.prev') // Get the appropriate element (<button class="n
     moveToPrevSlide(); // call the function above to handle this
   });
   
-  const fetchHeroData = async (name) => {
-    try {
-      const response = await fetch(`https://www.superheroapi.com/api.php/1952847071749817/search/${name}`);
-      const data = await response.json();
-      return data.results[0];
-    } catch (error) {
-      console.error(error);
-    }
-  };
-        const resetButton = document.getElementById("reset-button");
-  
-  // Function to display powerstats as a chart
+  let chartInstance;
+
+  // Function that displays powerstats as a chart
   const displayPowerstats = (powerstats) => {
     const labels = ['Intelligence', 'Strength', 'Speed', 'Durability', 'Power', 'Combat'];
     const values = [
@@ -99,7 +90,13 @@ document.querySelector('.prev') // Get the appropriate element (<button class="n
     ];
   
     const ctx = document.getElementById('power-stats').getContext('2d');
-    const myChart = new Chart(ctx, {
+  
+    // Function for destroying existing chart 
+    if (chartInstance) {
+      chartInstance.destroy();
+    }
+  
+    chartInstance = new Chart(ctx, {
       type: 'bar',
       data: {
         labels: labels,
@@ -137,32 +134,63 @@ document.querySelector('.prev') // Get the appropriate element (<button class="n
     });
   };
   
+  
   // Function that displays the heroes biography data
-  const displayBiography = (biography) => {
-    const biographyList = document.getElementById('biography');
-    biographyList.innerHTML = `
-      <li><strong>Name:</strong> ${biography['full-name']}</li>
-      <li><strong>Alter Egos:</strong> ${biography['alter-egos']}</li>
-      <li><strong>Aliases:</strong> ${biography.aliases.join(', ')}</li>
-      <li><strong>Place of Birth:</strong> ${biography['place-of-birth']}</li>
-      <li><strong>First Appearance:</strong> ${biography['first-appearance']}</li>
-      <li><strong>Publisher:</strong> ${biography.publisher}</li>
-      <li><strong>Alignment:</strong> ${biography.alignment}</li>
-      `;
-  };
-  
-  // Event listener for search button
-  const searchBtn = document.getElementById('search-btn');
-  searchBtn.addEventListener('click', async () => {
-    const heroName = document.getElementById('hero-name').value;
-  
-    // Fetch for displaying hero's powerstats data
-    const heroData = await fetchHeroData(heroName);
-    const powerstats = heroData.powerstats;
-    displayPowerstats(powerstats);
-  
-    // Fetch for displaying hero's biography data
-    const bioData = await fetchHeroData(heroName);
-    const biography = bioData.biography;
-    displayBiography(biography);
-  });
+const displayBiography = (biography) => {
+  const biographyList = document.getElementById('biography');
+  biographyList.innerHTML = `
+    <li><strong>Name:</strong> ${biography['full-name']}</li>
+    <li><strong>Alter Egos:</strong> ${biography['alter-egos']}</li>
+    <li><strong>Aliases:</strong> ${biography.aliases.join(', ')}</li>
+    <li><strong>Place of Birth:</strong> ${biography['place-of-birth']}</li>
+    <li><strong>First Appearance:</strong> ${biography['first-appearance']}</li>
+    <li><strong>Publisher:</strong> ${biography.publisher}</li>
+    <li><strong>Alignment:</strong> ${biography.alignment}</li>
+  `;
+};
+const fetchHeroData = async (name) => {
+  try {
+    const response = await fetch(`https://www.superheroapi.com/api.php/1952847071749817/search/${name}`);
+    const data = await response.json();
+    return data.results[0];
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// Function that reloads powerstats chart and biography
+const reloadPowerstatsAndBiography = async (heroName) => {
+  // Fetch for displaying hero's powerstats data
+  const heroData = await fetchHeroData(heroName);
+  const powerstats = heroData.powerstats;
+  displayPowerstats(powerstats);
+
+  //Function that fetchs for displaying hero's biography data
+  const bioData = await fetchHeroData(heroName);
+  const biography = bioData.biography;
+  displayBiography(biography);
+};
+
+// Event listener for the search button
+const searchBtn = document.getElementById('search-btn');
+searchBtn.addEventListener('click', async () => {
+  const heroName = document.getElementById('hero-name').value;
+
+  await reloadPowerstatsAndBiography(heroName);
+});
+
+// Event listener for the reset button
+const resetButton = document.getElementById('reset-button');
+resetButton.addEventListener('click', () => {
+  // function to clear powerstats chart
+  if (chartInstance) {
+    chartInstance.destroy();
+  }
+
+  // Function to clear the biography list
+  const biographyList = document.getElementById('biography');
+  biographyList.innerHTML = '';
+
+  // Function to clear the hero name input field
+  document.getElementById('hero-name').value = '';
+});
