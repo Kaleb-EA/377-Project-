@@ -160,7 +160,7 @@ const fetchHeroData = async (name) => {
 
 // Function that reloads powerstats chart and biography
 const reloadPowerstatsAndBiography = async (heroName) => {
-  // Fetch for displaying hero's powerstats data
+  // Fetches for displaying hero's powerstats data
   const heroData = await fetchHeroData(heroName);
   const powerstats = heroData.powerstats;
   displayPowerstats(powerstats);
@@ -182,7 +182,7 @@ searchBtn.addEventListener('click', async () => {
 // Event listener for the reset button
 const resetButton = document.getElementById('reset-button');
 resetButton.addEventListener('click', () => {
-  // function to clear powerstats chart
+  // Function to clear powerstats chart
   if (chartInstance) {
     chartInstance.destroy();
   }
