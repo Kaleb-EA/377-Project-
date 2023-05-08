@@ -150,8 +150,10 @@ const displayBiography = (biography) => {
 };
 const fetchHeroData = async (name) => {
   try {
+    console.log('API call started');
     const response = await fetch(`https://www.superheroapi.com/api.php/1952847071749817/search/${name}`);
     const data = await response.json();
+    console.log('API call successful');
     return data.results[0];
   } catch (error) {
     console.error(error);
@@ -176,6 +178,16 @@ const searchBtn = document.getElementById('search-btn');
 searchBtn.addEventListener('click', async () => {
   const heroName = document.getElementById('hero-name').value;
 
+  // Check if previous searches are stored in local storage
+  let previousSearches = JSON.parse(localStorage.getItem('previousSearches')) || [];
+
+  // Add current search to the array of previous searches
+  previousSearches.push(heroName);
+
+  // Store the updated array of previous searches in local storage
+  localStorage.setItem('previousSearches', JSON.stringify(previousSearches));
+
+  // Reload powerstats and biography for the current search
   await reloadPowerstatsAndBiography(heroName);
 });
 
@@ -193,4 +205,24 @@ resetButton.addEventListener('click', () => {
 
   // Function to clear the hero name input field
   document.getElementById('hero-name').value = '';
+
+  // Function to display previous searches
+  const previousSearches = JSON.parse(localStorage.getItem('previousSearches')) || [];
+  const previousSearchesList = document.getElementById('previous-searches');
+  previousSearchesList.innerHTML = '';
+
+  previousSearches.forEach(search => {
+    const listItem = document.createElement('li');
+    listItem.innerText = search;
+    previousSearchesList.appendChild(listItem);
+  });
 });
+
+  // Function to clear the biography list
+  const biographyList = document.getElementById('biography');
+  biographyList.innerHTML = '';
+
+  // Function to clear the hero name input field
+  document.getElementById('hero-name').value = '';
+
+
