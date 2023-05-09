@@ -10,49 +10,31 @@
   <header class="header">
     <h1>Comic Characters and Movies Database</h1>
   </header>
-  <div class="container">
-    <div class="left_section box">
-        <div>Form Inputs</div>
-        <form action='' class="main_form box">
+    <div class="box">
+      <h1>Superhero Search</h1>
+      <div>
+        <label for="hero-name">Enter Hero Name:</label>
+        <input type="text" id="hero-name">
+        <button id="search-btn">Search</button>
+        <button id="reset-button">Reset</button>
+      </div>
+      <div>
+        <h2>Comics similar to Movies</h2>
+        <img id="my-image" src="" alt="">
+        </div>
         <div>
-            <label for="resto">Search Character for info</label>
-            <input type="search-list" id="search-list">
-        </div>
-        <div class="buttons">   
-            <button type="button" id="generate">Search</button>
-        </div>
-        </form>
-        </div>
-    <div class="right_section box">
-      <h3>Similar Comics and Characters</h3>
-      <div class="carousel">
-        <button class="prev">prev</button>
-        <div class="slides"">
-            <div class="carousel_item visible"><img id="slide_1" src="images\IronManComics.png" alt="Image Error"></div>
-            <div class="carousel_item hidden"><img id="slide_2" src="images\BatmanSimilar.png" alt="Image Error"></div>
-        </div>
-        <button class="next">next</button>
+        <h2>Powerstats</h2>
+        <canvas id="power-stats"></canvas>
+      </div>
+      <div>
+        <h2>Biography</h2>
+        <ul id="biography"></ul></li>
+        </ul>
     </div>
     </div>
     </div>
   </div>
-</div>
-<div class="chart_container box">
-  <h1>Superhero Search</h1>
-  <div>
-    <label for="hero-name">Enter Hero Name:</label>
-    <input type="text" id="hero-name">
-    <button id="search-btn">Search</button>
-    <button id="reset-button">Reset</button>
-  </div>
-  <div>
-    <h2>Powerstats</h2>
-    <canvas id="power-stats"></canvas>
-  </div>
-  <div>
-    <h2>Biography</h2>
-    <ul id="biography"></ul></li>
-    </ul>
+</div>  
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </div>   
 </div>
