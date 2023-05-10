@@ -159,18 +159,6 @@ if (teamNames) {
         console.error(error);
       }
     }
-    if (hero.id === 156) {
-      try {
-        const heroImageResponse = await fetch('https://example.com/path/to/Shazam.png');
-        if (heroImageResponse.ok) {
-          imgHero.src = 'https://example.com/path/to/Shazam.png';
-        } else {
-          console.error(`Hero image not found: https://example.com/path/to/Shazam.png`);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    } else {
       try {
         const heroImageResponse = await fetch(imagesFolder + hero.name.replace(/ /g, '_') + '.png');
         if (heroImageResponse.ok) {
@@ -181,7 +169,6 @@ if (teamNames) {
       } catch (error) {
         console.error(error);
       }
-    }
 
     try {
       const teamImageResponse = await fetch(teamImagePath);
