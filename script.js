@@ -80,15 +80,30 @@ const imgTeam = document.getElementById('team-image');
 imgTeam.alt = 'No team image available';
 
 const fetchHeroData = async (name) => {
-try {
-  const response = await fetch(`https://www.superheroapi.com/api.php/1952847071749817/search/${name}`);
-  const data = await response.json();
-  const result = data.results.filter(hero => hero.name.toLowerCase() === name.toLowerCase())[0];
-  return result;
-} catch (error) {
-  console.error(error);
-}
+  try {
+    let id;
+    let heroName = name;
+    if (name.toLowerCase() === 'captain marvel') {
+      id = 157;
+    } else if (name.toLowerCase() === 'shazam') {
+      id = 156;
+      heroName = "shazam";
+    } else {
+      const response = await fetch(`https://www.superheroapi.com/api.php/1952847071749817/search/${name}`);
+      const data = await response.json();
+      const result = data.results.filter(hero => hero.name.toLowerCase() === name.toLowerCase())[0];
+      id = result.id;
+    }
+    const response = await fetch(`https://www.superheroapi.com/api.php/1952847071749817/${id}`);
+    const data = await response.json();
+    data.heroName = heroName; // Add heroName property to data object
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
 };
+
+
 
 // Function that displays searched hero and there affilliated team's comics that are similar to the movies they are in
 const displayImages = async (heroName) => {
@@ -119,6 +134,56 @@ if (teamNames) {
         console.error(error);
       }
     }
+    if (teamName.includes('X-')) {
+      try {
+        const teamImageResponse = await fetch(imagesFolder + 'x-men.png');
+        if (teamImageResponse.ok) {
+          imgTeam.src = imagesFolder + 'x-men.png';
+          break;
+        } else {
+          console.error(`Team image not found: ${imagesFolder + 'x-men.png'}`);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    if (teamName.includes('Justice')) {
+      try {
+        const teamImageResponse = await fetch(imagesFolder + 'Justice-league.png');
+        if (teamImageResponse.ok) {
+          imgTeam.src = imagesFolder + 'Justice-league.png';
+          break;
+        } else {
+          console.error(`Team image not found: ${imagesFolder + 'Justice-league.png'}`);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    if (hero.id === 156) {
+      try {
+        const heroImageResponse = await fetch('https://example.com/path/to/Shazam.png');
+        if (heroImageResponse.ok) {
+          imgHero.src = 'https://example.com/path/to/Shazam.png';
+        } else {
+          console.error(`Hero image not found: https://example.com/path/to/Shazam.png`);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      try {
+        const heroImageResponse = await fetch(imagesFolder + hero.name.replace(/ /g, '_') + '.png');
+        if (heroImageResponse.ok) {
+          imgHero.src = imagesFolder + hero.name.replace(/ /g, '_') + '.png';
+        } else {
+          console.error(`Hero image not found: ${imagesFolder + hero.name.replace(/ /g, '_') + '.png'}`);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    
 
     try {
       const teamImageResponse = await fetch(teamImagePath);
@@ -160,7 +225,7 @@ const response = await fetch(folderPath);
 const pageContent = await response.text();
 const parser = new DOMParser();
 const htmlDoc = parser.parseFromString(pageContent, 'text/html');
-const imageLinks = htmlDoc.querySelectorAll('a[href$=".png"], a[href$=".jpg"], a[href$=".jpeg"]');
+const imageLinks = htmlDoc.querySelectorAll('a[href$=".png"], a[href$=".png"], a[href$=".png"]');
 const imageNames = Array.from(imageLinks).map(link => link.getAttribute('href'));
 return imageNames;
 };
@@ -187,6 +252,7 @@ const biography = heroData.biography;
 displayPowerstats(powerstats);
 displayBiography(biography);
 
+
 // Funtion to display the searched hero related image
 await displayImages(heroName);
 };
@@ -209,21 +275,37 @@ localStorage.setItem('previousSearches', JSON.stringify(previousSearches));
 await reloadAllData(heroName);
 });
 
-
-// Event listener for the reset button
+// Function that reloads everything with the reset button
+const resetImages = () => {
+  imgHero.src = '';
+  imgTeam.src = '';
+};
 const resetButton = document.getElementById('reset-button');
+
 resetButton.addEventListener('click', () => {
-// Function to clear powerstats chart
-if (chartInstance) {
-  chartInstance.destroy();
-}
+  // Clears the hero's name input field
+  document.getElementById('hero-name').value = '';
 
-// Function that clears the biography list
-const biographyList = document.getElementById('biography');
-biographyList.innerHTML = '';
+  // Resets the hero's and team images
+  imgHero.src = '';
+  imgHero.alt = 'No hero image available';
+  imgTeam.src = '';
+  imgTeam.alt = 'No team image available';
 
-// Function that clears the hero name input field
-document.getElementById('hero-name').value = '';
+  // Resets the powerstats chart
+  displayPowerstats({
+    intelligence: 0,
+    strength: 0,
+    speed: 0,
+    durability: 0,
+    power: 0,
+    combat: 0
+  });
+
+  // Resets the biography list
+  const biographyList = document.getElementById('biography');
+  biographyList.innerHTML = '';
+});
 
 // Function that displays previous searches
 const previousSearches = JSON.parse(localStorage.getItem('previousSearches')) || [];
@@ -235,7 +317,6 @@ previousSearches.forEach(search => {
   listItem.innerText = search;
   previousSearchesList.appendChild(listItem);
 });
-});
 
 // Function that clears the biography list
 const biographyList = document.getElementById('biography');
@@ -243,3 +324,4 @@ biographyList.innerHTML = '';
 
 // Function that clears the hero name input field
 document.getElementById('hero-name').value = ''
+
