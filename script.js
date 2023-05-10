@@ -96,14 +96,12 @@ const fetchHeroData = async (name) => {
     }
     const response = await fetch(`https://www.superheroapi.com/api.php/1952847071749817/${id}`);
     const data = await response.json();
-    data.heroName = heroName; // Add heroName property to data object
+    data.heroName = heroName;
     return data;
   } catch (error) {
     console.error(error);
   }
 };
-
-
 
 // Function that displays searched hero and there affilliated team's comics that are similar to the movies they are in
 const displayImages = async (heroName) => {
@@ -184,7 +182,6 @@ if (teamNames) {
       }
     }
     
-
     try {
       const teamImageResponse = await fetch(teamImagePath);
       if (teamImageResponse.ok) {
