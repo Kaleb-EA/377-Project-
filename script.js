@@ -1,5 +1,6 @@
 let chartInstance = null;
 
+
  // Function that displays powerstats as a chart
  const displayPowerstats = (powerstats) => {
   const labels = ['Intelligence', 'Strength', 'Speed', 'Durability', 'Power', 'Combat'];
@@ -181,7 +182,7 @@ if (teamNames) {
         console.error(error);
       }
     }
-    
+
     try {
       const teamImageResponse = await fetch(teamImagePath);
       if (teamImageResponse.ok) {
