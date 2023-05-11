@@ -217,29 +217,7 @@ if (!imgTeam.src) {
 }
 };
 
-// Function to get a list of image files in a folder
-const getImagesList = async (folderPath) => {
-const response = await fetch(folderPath);
-const pageContent = await response.text();
-const parser = new DOMParser();
-const htmlDoc = parser.parseFromString(pageContent, 'text/html');
-const imageLinks = htmlDoc.querySelectorAll('a[href$=".png"], a[href$=".png"], a[href$=".png"]');
-const imageNames = Array.from(imageLinks).map(link => link.getAttribute('href'));
-return imageNames;
-};
 
-// Function to find an image file in a folder that has a similar name to the given string
-const findSimilarImageName = (searchStr, imageFiles) => {
-const normalizedSearchStr = searchStr.toLowerCase().replace(/\s/g, '-');
-for (let i = 0; i < imageFiles.length; i++) {
-  const imageName = imageFiles[i].replace(/\.png$|\.jpg$|\.jpeg$/i, '');
-  const normalizedImageName = imageName.toLowerCase().replace(/\s/g, '-');
-  if (normalizedImageName.includes(normalizedSearchStr)) {
-    return imageFiles[i];
-  }
-}
-return null;
-};
 
 // Function that reloads powerstats chart, biography and image
 const reloadAllData = async (heroName) => {
