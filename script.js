@@ -134,6 +134,19 @@ if (teamNames) {
         console.error(error);
       }
     }
+    if (teamName.includes('avengers')) {
+      try {
+        const teamImageResponse = await fetch(imagesFolder + 'Avengers.png');
+        if (teamImageResponse.ok) {
+          imgTeam.src = imagesFolder + 'Avengers.png';
+          break;
+        } else {
+          console.error(`Team image not found: ${imagesFolder + 'Avengers.png'}`);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
     if (teamName.includes('X-')) {
       try {
         const teamImageResponse = await fetch(imagesFolder + 'x-men.png');
@@ -171,6 +184,19 @@ if (teamNames) {
         console.error(error);
       }
       if (teamName.includes('Galaxy')) {
+        try {
+          const teamImageResponse = await fetch(imagesFolder + 'Guardians-of-the-Galaxy.png');
+          if (teamImageResponse.ok) {
+            imgTeam.src = imagesFolder + 'Guardians-of-the-Galaxy.png';
+            break;
+          } else {
+            console.error(`Team image not found: ${imagesFolder + 'Guardians-of-the-Galaxy.png'}`);
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+      if (teamName.includes('Guardians')) {
         try {
           const teamImageResponse = await fetch(imagesFolder + 'Guardians-of-the-Galaxy.png');
           if (teamImageResponse.ok) {
