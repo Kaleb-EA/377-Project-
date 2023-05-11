@@ -169,7 +169,19 @@ if (teamNames) {
       } catch (error) {
         console.error(error);
       }
-
+      if (teamName.includes('Galaxy')) {
+        try {
+          const teamImageResponse = await fetch(imagesFolder + 'Guardians-of-the-Galaxy.png');
+          if (teamImageResponse.ok) {
+            imgTeam.src = imagesFolder + 'Guardians-of-the-Galaxy.png';
+            break;
+          } else {
+            console.error(`Team image not found: ${imagesFolder + 'Guardians-of-the-Galaxy.png'}`);
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
     try {
       const teamImageResponse = await fetch(teamImagePath);
       if (teamImageResponse.ok) {
