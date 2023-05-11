@@ -160,7 +160,7 @@ if (teamNames) {
         console.error(error);
       }
     }
-    if (teamName.includes('Justice')) {
+    if (teamName.includes('justice')) {
       try {
         const teamImageResponse = await fetch(imagesFolder + 'Justice-league.png');
         if (teamImageResponse.ok) {
