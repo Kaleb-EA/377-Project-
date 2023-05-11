@@ -104,6 +104,7 @@ const fetchHeroData = async (name) => {
   }
 };
 
+
 // Function that displays searched hero and there affilliated team's comics that are similar to the movies they are in
 const displayImages = async (heroName) => {
 imgHero.src = '';
