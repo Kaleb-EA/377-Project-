@@ -233,6 +233,7 @@ displayBiography(biography);
 await displayImages(heroName);
 };
 
+
 // Event listener for the search button
 const searchBtn = document.getElementById('search-btn');
 searchBtn.addEventListener('click', async () => {
